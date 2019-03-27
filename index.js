@@ -2,6 +2,9 @@
 const express = require('express')
 const dotenv = require('dotenv')
 
+// routes
+const indexRoutes = require('./routes/index')
+
 // setup the environment
 dotenv.config()
 // create app
@@ -11,10 +14,8 @@ const app = express()
 app.set('view engine', 'ejs')
 
 
-// index route
-app.get('/', (req, res) => {
-	res.render('index')
-})
+// setup routes
+app.use('/', indexRoutes)
 
 const PORT = process.env.PORT || 5000
 
