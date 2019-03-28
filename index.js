@@ -8,6 +8,7 @@ const session = require('express-session')
 
 // routes
 const indexRoutes = require('./routes/index')
+const postRoutes = require('./routes/post')
 
 // setup the environment
 dotenv.config()
@@ -22,6 +23,8 @@ const app = express()
 // configuration ejs
 app.set('view engine', 'ejs')
 
+// setup public folder
+app.use(express.static('public'))
 // middlewares
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -43,6 +46,7 @@ require('./config/passport')(app)
 
 // setup routes
 app.use('/', indexRoutes)
+app.use('/post', postRoutes)
 
 const PORT = process.env.PORT || 5000
 
