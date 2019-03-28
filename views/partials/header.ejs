@@ -12,3 +12,19 @@
 	<div class="ui inverted menu">
 		<a class="item" href="/">Home</a>
 	</div>
+
+	<% if (error && error.length > 0) { %>
+		<div class="ui warning message">
+			<div class="header">
+				<%= error[0] %>
+			</div>
+		</div>
+	<% } %>
+
+	<% if (success && success.length > 0) {%>
+		<div class="ui success message">
+			<div class="header">
+				<%= success[0] %>
+			</div>
+		</div>
+	<% } %>

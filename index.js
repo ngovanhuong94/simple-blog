@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const flash = require('connect-flash')
+const session = require('express-session')
 
 // routes
 const indexRoutes = require('./routes/index')
@@ -24,7 +25,20 @@ app.set('view engine', 'ejs')
 // middlewares
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false 
+}))
 app.use(flash())
+
+// custom middeware
+app.use((req, res, next) => {
+    console.log(req.flash('error'))
+    res.locals.error = req.flash('error')
+    res.locals.success = req.flash('success')
+    next()
+})
 
 // setup routes
 app.use('/', indexRoutes)
