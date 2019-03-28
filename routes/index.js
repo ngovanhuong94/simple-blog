@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/User')
+const passport = require('passport')
 
 
 // show the home page
@@ -18,8 +19,7 @@ router.post('/register', async (req, res) => {
 	const user = await User.findOne({ username })
 	try {
 		if (user) {
-			req.flash('error', 'Username was used')
-			return res.render('register')
+			return res.render('register', { error: 'Username was used'})
 		} else {
 			const newUser = new User({
 				username,
@@ -28,13 +28,23 @@ router.post('/register', async (req, res) => {
 	
 			await newUser.save()
 			req.flash('success', 'Please login with your account!')
-			return res.redirect('/')
+			return res.redirect('/login')
 		}
 	} catch (err) {
-		req.flash('error', 'Something went wrong')
-		return res.render('register')
+		return res.render('register', { error: 'Something went wrong'})
 	}
 })
+
+
+router.get('/login', (req, res) => {
+	res.render('login')
+})
+
+router.post('/login', passport.authenticate('local', {
+	successRedirect: '/',
+	failureRedirect: '/login',
+	failureFlash: true 
+}))
 
 // export router
 module.exports = router 

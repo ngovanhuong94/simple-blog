@@ -34,11 +34,12 @@ app.use(flash())
 
 // custom middeware
 app.use((req, res, next) => {
-    console.log(req.flash('error'))
     res.locals.error = req.flash('error')
     res.locals.success = req.flash('success')
     next()
 })
+// setup passport
+require('./config/passport')(app)
 
 // setup routes
 app.use('/', indexRoutes)
