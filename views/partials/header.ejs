@@ -11,7 +11,22 @@
 <body>
 
 	<div class="ui inverted menu">
-		<a class="item" href="/">Home</a>
+		<div class="ui container">
+			<div class="header item"><i class="idea icon"></i>My Blog</div>
+			<a class="item" href="/">Home</a>
+			<% if (!currentUser) {%>
+				<div class="right menu">
+					<a href="/login" class="item">Login</a>
+					<a href="/register" class="item">Register</a>
+				</div>
+			<% } else { %>
+				<div class="right menu">
+					<a href="/post/new" class="item">Create new post</a>
+					<span class="item"><%= currentUser.username %></span>
+					<a href="/logout" class="item">Logout</a>
+				</div>
+			<% } %>
+		</div>
 	</div>
 
 	<% if (error && error.length > 0) { %>

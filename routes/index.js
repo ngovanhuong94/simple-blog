@@ -1,11 +1,15 @@
 const router = require('express').Router()
 const User = require('../models/User')
+const Post = require('../models/Post')
+
 const passport = require('passport')
 
 
 // show the home page
-router.get('/', (req, res) => {
-	res.render('index')
+router.get('/', async (req, res) => {
+	// find all posts
+	const posts = await Post.find().sort({ created: -1 }).exec()
+	res.render('index', { posts: posts })
 })
 
 // show the register page
@@ -45,6 +49,12 @@ router.post('/login', passport.authenticate('local', {
 	failureRedirect: '/login',
 	failureFlash: true 
 }))
+
+router.get('/logout', (req, res) => {
+	req.logout()
+	req.flash('success', 'Logged out!')
+	res.redirect('/')
+})
 
 // export router
 module.exports = router 

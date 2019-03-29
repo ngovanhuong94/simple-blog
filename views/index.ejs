@@ -1,6 +1,30 @@
 <% include partials/header %>
-<div>
-	This is HomePage
+
+<div class="ui text container context">
+	<div class="ui huge header">Welcome to my blog!</div>
+	<div class="ui top attached segment">
+		<div class="ui divided items">
+			<% posts.forEach(function (post) {%>
+				<div class="item">
+					<div class="image">
+						<img src="<%= post.image %>"/>
+					</div>
+					<div class="content">
+						<a class="header" href="/"><%= post.title %></a>
+						<div class="meta">
+							<span><%= post.createdAt.toDateString() %></span>
+						</div>
+						<div class="description">
+							<p><%= post.body.substring(0, 100)%></p>
+						</div>
+						<div class="extra">
+							<a class="ui floated basic violet button" href="/">Read more</a>
+						</div>
+					</div>
+				</div>
+			<% })%>
+		</div>
+	</div>
 </div>
 
 <% include partials/footer %>

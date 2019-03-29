@@ -35,14 +35,17 @@ app.use(session({
 }))
 app.use(flash())
 
+// setup passport
+require('./config/passport')(app)
+
 // custom middeware
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.error = req.flash('error')
     res.locals.success = req.flash('success')
     next()
 })
-// setup passport
-require('./config/passport')(app)
+
 
 // setup routes
 app.use('/', indexRoutes)
