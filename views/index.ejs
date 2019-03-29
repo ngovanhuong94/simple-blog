@@ -10,7 +10,7 @@
 						<img src="<%= post.image %>"/>
 					</div>
 					<div class="content">
-						<a class="header" href="/"><%= post.title %></a>
+						<a class="header" href="/post/<%= post._id %>"><%= post.title %></a>
 						<div class="meta">
 							<span><%= post.createdAt.toDateString() %></span>
 						</div>
@@ -18,7 +18,8 @@
 							<p><%= post.body.substring(0, 100)%></p>
 						</div>
 						<div class="extra">
-							<a class="ui floated basic violet button" href="/">Read more</a>
+							<a class="ui floated basic violet button" href="/post/<%= post._id %>">
+							Read more</a>
 						</div>
 					</div>
 				</div>
