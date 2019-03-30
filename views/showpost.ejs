@@ -10,6 +10,9 @@
                 <div class="description">
                     <p><%= post.body %></p>
                 </div>
+                <% if (currentUser && post.userId.equals(currentUser._id)) {%>
+                    <a class="ui orange button" href="/post/<%= post._id %>/edit">Edit post</a>
+                <% } %>
             </div>
         </div>
     </div>

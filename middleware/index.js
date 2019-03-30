@@ -22,8 +22,6 @@ exports.isOwnerPost = async (req, res, next) => {
                 return res.redirect('back')
             } else {
                 // check ownership
-                console.log(req.user._id)
-                console.log(post.userId)
                 if (post.userId.equals(req.user._id)) {
                     // same ids
                     next()

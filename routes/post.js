@@ -41,5 +41,20 @@ router.get('/:id/edit', isOwnerPost,async (req, res) => {
     }
 })
 
+router.post('/:id/edit', isOwnerPost, async (req, res) => {
+    const { title, image, body } = req.body
+    try {
+        const post = await Post.findById(req.params.id)
+        post.title = title
+        post.image = image
+        post.body = body
+        await post.save()
+        return res.redirect(`/post/${req.params.id}`)
+    } catch (err) {
+        console.log(err)
+        return res.redirect('back')
+    }
+})
+
 
 module.exports = router 
