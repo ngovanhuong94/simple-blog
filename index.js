@@ -9,7 +9,7 @@ const session = require('express-session')
 // routes
 const indexRoutes = require('./routes/index')
 const postRoutes = require('./routes/post')
-
+const commentRoutes = require('./routes/comment')
 // setup the environment
 dotenv.config()
 
@@ -50,6 +50,7 @@ app.use((req, res, next) => {
 // setup routes
 app.use('/', indexRoutes)
 app.use('/post', postRoutes)
+app.use('/post/:id/comments', commentRoutes)
 
 const PORT = process.env.PORT || 5000
 
