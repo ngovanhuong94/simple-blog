@@ -56,5 +56,16 @@ router.post('/:id/edit', isOwnerPost, async (req, res) => {
     }
 })
 
+router.post('/:id/delete', isOwnerPost, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id)
+        await post.delete()
+        return res.redirect('/')
+    } catch (err) {
+        console.log(err)
+        return res.redirect('back')
+    }
+})
+
 
 module.exports = router 
